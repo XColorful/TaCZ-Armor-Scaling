@@ -1,4 +1,23 @@
 {
+  "armorscaling.message.no_config_manager_available": "当前没有已加载的%s配置管理器",
+  "armorscaling.message.no_sub_config_manager_available": "当前没有已加载的%s子配置管理器",
+
+  "armorscaling.message.all_config_reloaded": "已重新加载所有TaCZ护甲缩放配置",
+  "armorscaling.message.armor_scaling_config_reloaded": "已重新加载护甲缩放配置",
+  "armorscaling.message.all_default_config_generated": "已生成所有TaCZ护甲缩放配置示例",
+  "armorscaling.message.default_armor_scaling_config_generated": "已生成护甲缩放配置示例",
+  "armorscaling.message.all_config_backed_up": "已备份所有TaCZ护甲缩放配置",
+  "armorscaling.message.armor_scaling_config_backed_up": "已备份护甲缩放配置",
+  "armorscaling.message.all_config_saved": "已保存所有TaCZ护甲缩放配置",
+  "armorscaling.message.armor_scaling_config_saved": "已保存护甲缩放配置",
+
+  "armorscaling.message.armor_scaling_config_applied": "已应用护甲缩放配置%s: %s",
+  "armorscaling.message.invalid_armor_scaling_config_id": "无法应用护甲缩放配置%s",
+
+  "armorscaling.message.switch_armor_scaling_config_file": "切换护甲缩放配置文件'%s'",
+  "armorscaling.message.no_armor_scaling_config_available": "当前没有已加载的护甲缩放配置",
+  "armorscaling.message.no_armor_scaling_config_file": "没有护甲缩放配置文件'%s'",
+
   "armorscaling.message.enable_durability_scaling": "已启用护甲耐久度缩放",
   "armorscaling.message.disable_durability_scaling": "已禁用护甲耐久度缩放",
   "armorscaling.message.enable_armor_ignore": "已启用全局TaCZ子弹护甲穿透",

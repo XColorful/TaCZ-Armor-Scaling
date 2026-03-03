@@ -1,4 +1,23 @@
 {
+  "armorscaling.message.no_config_manager_available": "No %s config manager available",
+  "armorscaling.message.no_sub_config_manager_available": "No %s sub config manager available",
+
+  "armorscaling.message.all_config_reloaded": "Reloaded all TaCZ Armor Scaling configs",
+  "armorscaling.message.armor_scaling_config_reloaded": "Reloaded armor scaling configs",
+  "armorscaling.message.all_default_config_generated": "Generated all TaCZ Armor Scaling config examples",
+  "armorscaling.message.default_armor_scaling_config_generated": "Generated armor scaling config examples",
+  "armorscaling.message.all_config_backed_up": "Backed up all TaCZ Armor Scaling configs",
+  "armorscaling.message.armor_scaling_config_backed_up": "Backed up armor scaling configs",
+  "armorscaling.message.all_config_saved": "Saved all TaCZ Armor Scaling configs",
+  "armorscaling.message.armor_scaling_config_saved": "Saved armor scaling configs",
+
+  "armorscaling.message.armor_scaling_config_applied": "Applied armor scaling config %s: %s",
+  "armorscaling.message.invalid_armor_scaling_config_id": "Impossible armor scaling config id: %s",
+
+  "armorscaling.message.switch_armor_scaling_config_file": "Switch armor scaling config file to '%s'",
+  "armorscaling.message.no_armor_scaling_config_available": "No armor scaling config available",
+  "armorscaling.message.no_armor_scaling_config_file": "No armor scaling config file '%s'",
+
   "armorscaling.message.enable_durability_scaling": "Enabled armor durability scaling",
   "armorscaling.message.disable_durability_scaling": "Disabled armor durability scaling",
   "armorscaling.message.enable_armor_ignore": "Enabled global TaCZ bullet armor ignore",
