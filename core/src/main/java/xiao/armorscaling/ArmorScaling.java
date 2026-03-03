@@ -2,9 +2,8 @@ package xiao.armorscaling;
 
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
+import xiao.armorscaling.api.compat.tacz.ITaczEventRegister;
 import xiao.battleroyale.api.common.McSide;
-
-import java.util.Random;
 
 public class ArmorScaling {
     public static final String MOD_ID = "armorscaling";
@@ -13,10 +12,16 @@ public class ArmorScaling {
 
     protected static boolean initialized;
     protected static McSide mcSide = McSide.CLIENT;
-    public static void init(McSide mcSide) {
+    public record CompatApi(ITaczEventRegister taczEventRegister) {}
+    private static CompatApi compatApi;
+
+    public static void init(McSide mcSide,
+                            CompatApi compatApi) {
         if (initialized) return;
 
         ArmorScaling.mcSide = mcSide;
+
+        ArmorScaling.compatApi = compatApi;
 
         if (mcSide.isClientSide()) {
         }
@@ -28,5 +33,11 @@ public class ArmorScaling {
 
     public static McSide getMcSide() {
         return mcSide;
+    }
+    public static CompatApi getCompatApi() {
+        if (compatApi == null) {
+            throw new IllegalStateException("Compat api has not initialized. Call init() first.");
+        }
+        return compatApi;
     }
 }
