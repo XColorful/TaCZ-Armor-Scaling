@@ -1,2 +1,7 @@
 {
+  "armorscaling.message.enable_durability_scaling": "Enabled armor durability scaling",
+  "armorscaling.message.disable_durability_scaling": "Disabled armor durability scaling",
+  "armorscaling.message.enable_armor_ignore": "Enabled global TaCZ bullet armor ignore",
+  "armorscaling.message.disable_armor_ignore": "Disabled global TaCZ bullet armor ignore",
+  "armorscaling.message.set_armor_ignore_scale": "Set global TaCZ bullet armor ignore scale to %s"
 }
