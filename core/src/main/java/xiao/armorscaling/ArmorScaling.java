@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import xiao.armorscaling.api.compat.tacz.ITaczEventRegister;
+import xiao.armorscaling.api.scaling.IArmorScalingManager;
+import xiao.armorscaling.common.scaling.ArmorScalingManager;
 import xiao.armorscaling.config.ModConfigManager;
 import xiao.battleroyale.api.common.McSide;
 import xiao.battleroyale.api.config.IModConfigManager;
@@ -29,6 +31,9 @@ public class ArmorScaling {
         modConfigManager = ModConfigManager.getApi();
         ModConfigManager.init(mcSide);
 
+        setArmorScalingManagerInternal(ArmorScalingManager.get());
+        ArmorScalingManager.init(mcSide);
+
         initialized = true;
     }
 
@@ -42,12 +47,29 @@ public class ArmorScaling {
         return compatApi;
     }
 
+    private static IArmorScalingManager armorScalingManager;
     private static IModConfigManager modConfigManager;
+    public static IArmorScalingManager getArmorScalingManager() {
+        return armorScalingManager;
+    }
     public static IModConfigManager getModConfigManager() {
         return modConfigManager;
+    }
+    /**
+     * @deprecated 除非需要深度定制, 否则不应该调用
+     */
+    @Deprecated(forRemoval = false)
+    public static void setArmorScalingManager(@NotNull IArmorScalingManager armorScalingManager) {
+        setArmorScalingManagerInternal(armorScalingManager);
     }
     @Deprecated(forRemoval = false)
     public static void setModConfigManager(@NotNull IModConfigManager modConfigManager) {
         ArmorScaling.modConfigManager = modConfigManager;
+    }
+
+    private static void setArmorScalingManagerInternal(@NotNull IArmorScalingManager armorScalingManager) {
+        if (ArmorScaling.armorScalingManager != null) armorScalingManager.unregisterToMod();
+        ArmorScaling.armorScalingManager = armorScalingManager;
+        armorScalingManager.registerToMod();
     }
 }
