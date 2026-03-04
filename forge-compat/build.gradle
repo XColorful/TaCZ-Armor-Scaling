@@ -83,6 +83,19 @@ tasks.named('jar', Jar).configure {
     archiveClassifier.set("${forge_id}-${minecraft_version}")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from project(':core').sourceSets.main.output
+
+    manifest {
+        attributes([
+                "Specification-Title"     : "armorscaling",
+                "Specification-Vendor"    : "XiaoColorful",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.mod_version,
+                "Implementation-Vendor"   : "XiaoColorful",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "armorscaling.mixins.json"
+        ])
+    }
 }
 
 tasks.matching { it.name == 'remapJar' || it.name == 'reobfJar' }.configureEach {

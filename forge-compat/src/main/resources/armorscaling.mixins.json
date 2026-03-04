@@ -1,0 +1,10 @@
+{
+  "package": "xiao.armorscaling.compat.forge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "tacz.EntityKineticBulletMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
