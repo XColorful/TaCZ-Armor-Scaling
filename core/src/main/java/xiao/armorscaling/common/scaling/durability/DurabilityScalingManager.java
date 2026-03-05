@@ -99,11 +99,21 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
     }
 
     @Override
+    public boolean keepItemGameId() {
+        return this.keepItemGameId;
+    }
+
+    @Override
     public void setKeepItemGameId(boolean shouldKeep) {
         this.keepItemGameId = shouldKeep;
         TempDataManager tempDataManager = TempDataManager.get();
         tempDataManager.writeBool(TACZ_ARMOR_SCALING, KEEP_ITEM_GAME_ID, this.keepItemGameId);
         tempDataManager.saveTempData();
+    }
+
+    @Override
+    public boolean replaceItemRemoveGameId() {
+        return this.replaceItemRemoveGameId;
     }
 
     @Override

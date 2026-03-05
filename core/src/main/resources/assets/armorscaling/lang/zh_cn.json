@@ -18,6 +18,8 @@
   "armorscaling.message.no_armor_scaling_config_available": "当前没有已加载的护甲缩放配置",
   "armorscaling.message.no_armor_scaling_config_file": "没有护甲缩放配置文件'%s'",
 
+  "armorscaling.message.enable_armor_damage_scaling": "已启用护甲伤害缩放",
+  "armorscaling.message.disable_armor_damage_scaling": "已禁用护甲伤害缩放",
   "armorscaling.message.enable_durability_scaling": "已启用护甲耐久度缩放",
   "armorscaling.message.disable_durability_scaling": "已禁用护甲耐久度缩放",
   "armorscaling.message.enable_durability_scaling_keep_gameid": "已启用耐久度缩放转移先前物品游戏ID",
@@ -26,5 +28,17 @@
   "armorscaling.message.disable_durability_scaling_remove_gameid": "已禁用耐久度缩放移除物品游戏ID",
   "armorscaling.message.enable_armor_ignore": "已启用全局TaCZ子弹护甲穿透",
   "armorscaling.message.disable_armor_ignore": "已禁用全局TaCZ子弹护甲穿透",
-  "armorscaling.message.set_armor_ignore_scale": "将全局TaCZ子弹护甲穿透设置为 %s"
+  "armorscaling.message.set_armor_ignore_scale": "将全局TaCZ子弹护甲穿透设置为 %s",
+
+  "armorscaling.message.damage_scaling_enabled": "护甲伤害缩放已启用",
+  "armorscaling.message.damage_scaling_disabled": "护甲伤害缩放已禁用",
+  "armorscaling.message.durability_scaling_enabled": "护甲耐久度缩放已启用",
+  "armorscaling.message.durability_scaling_disabled": "护甲耐久度缩放已禁用",
+  "armorscaling.message.durability_keep_gameid_enabled": "耐久度缩放转移游戏ID已启用",
+  "armorscaling.message.durability_keep_gameid_disabled": "耐久度缩放转移游戏ID已禁用",
+  "armorscaling.message.durability_remove_gameid_enabled": "耐久度缩放移除游戏ID已启用",
+  "armorscaling.message.durability_remove_gameid_disabled": "耐久度缩放移除游戏ID已禁用",
+  "armorscaling.message.armor_ignore_enabled": "全局TaCZ子弹护甲穿透已启用",
+  "armorscaling.message.armor_ignore_disabled": "全局TaCZ子弹护甲穿透已禁用",
+  "armorscaling.message.armor_ignore_ratio": "全局TaCZ子弹护甲穿透: %s"
 }

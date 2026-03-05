@@ -18,6 +18,8 @@
   "armorscaling.message.no_armor_scaling_config_available": "No armor scaling config available",
   "armorscaling.message.no_armor_scaling_config_file": "No armor scaling config file '%s'",
 
+  "armorscaling.message.enable_armor_damage_scaling": "Enabled armor damage scaling",
+  "armorscaling.message.disable_armor_damage_scaling": "Disabled armor damage scaling",
   "armorscaling.message.enable_durability_scaling": "Enabled armor durability scaling",
   "armorscaling.message.disable_durability_scaling": "Disabled armor durability scaling",
   "armorscaling.message.enable_durability_scaling_keep_gameid": "Enabled durability scaling transfer previous item GameId",
@@ -26,5 +28,17 @@
   "armorscaling.message.disable_durability_scaling_remove_gameid": "Disabled durability scaling remove item GameId",
   "armorscaling.message.enable_armor_ignore": "Enabled global TaCZ bullet armor ignore",
   "armorscaling.message.disable_armor_ignore": "Disabled global TaCZ bullet armor ignore",
-  "armorscaling.message.set_armor_ignore_scale": "Set global TaCZ bullet armor ignore scale to %s"
+  "armorscaling.message.set_armor_ignore_scale": "Set global TaCZ bullet armor ignore scale to %s",
+
+  "armorscaling.message.damage_scaling_enabled": "Damage scaling enabled",
+  "armorscaling.message.damage_scaling_disabled": "Damage scaling disabled",
+  "armorscaling.message.durability_scaling_enabled": "Armor durability scaling enabled",
+  "armorscaling.message.durability_scaling_disabled": "Armor durability scaling disabled",
+  "armorscaling.message.durability_keep_gameid_enabled": "Durability scaling transfer GameId enabled",
+  "armorscaling.message.durability_keep_gameid_disabled": "Durability scaling transfer GameId disabled",
+  "armorscaling.message.durability_remove_gameid_enabled": "Durability scaling remove GameId enabled",
+  "armorscaling.message.durability_remove_gameid_disabled": "Durability scaling remove GameId disabled",
+  "armorscaling.message.armor_ignore_enabled": "Armor ignore enabled",
+  "armorscaling.message.armor_ignore_disabled": "Armor ignore disabled",
+  "armorscaling.message.armor_ignore_ratio": "Armor ignore scale: %s"
 }
