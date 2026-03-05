@@ -115,6 +115,22 @@ public class ArmorScalingManager extends AbstractScalingManager implements IArmo
         }
     }
 
+    @Override
+    public boolean isEnabled() {
+        return getSubManagers().stream().anyMatch(IScalingSubManager::isEnabled);
+    }
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        for (IScalingSubManager manager : getSubManagers()) {
+            manager.setEnabled(enabled);
+        }
+    }
+
+    @Override
+    public void saveEnabled(boolean isEnabled) {
+    }
+
     private Collection<IScalingSubManager> getSubManagers() {
         return Arrays.asList(
                 getArmorIgnoreManager(),

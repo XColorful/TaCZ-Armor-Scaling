@@ -1,15 +1,26 @@
 package xiao.armorscaling.common.scaling.damage;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import xiao.armorscaling.ArmorScaling;
 import xiao.armorscaling.api.event.custom.bullethandler.DamageScalingEvent;
 import xiao.armorscaling.api.scaling.damage.IDamageScalingManager;
 import xiao.armorscaling.common.scaling.AbstractScalingManager;
 import xiao.armorscaling.config.common.armorscaling.ArmorScalingConfigManager;
+import xiao.armorscaling.data.io.TempDataManager;
 import xiao.battleroyale.BattleRoyale;
 import xiao.battleroyale.api.common.McSide;
 import xiao.battleroyale.api.event.CustomEventType;
 import xiao.battleroyale.api.event.ICustomEvent;
 import xiao.battleroyale.api.event.ICustomEventHandler;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static xiao.armorscaling.api.data.TempDataTag.TACZ_ARMOR_SCALING;
+import static xiao.armorscaling.api.data.TempDataTag.TURN_DAMAGE_SCALING;
 
 public class DamageScalingManager extends AbstractScalingManager implements IDamageScalingManager, ICustomEventHandler {
 
@@ -22,10 +33,15 @@ public class DamageScalingManager extends AbstractScalingManager implements IDam
     }
 
     protected DamageScalingManager() {
+        TempDataManager tempDataManager = TempDataManager.get();
+        Boolean enable = tempDataManager.getBool(TACZ_ARMOR_SCALING, TURN_DAMAGE_SCALING);
+        this.isEnabled = enable != null ? enable : false;
     }
 
     public static void init(McSide mcSide) {
     }
+
+    protected final Map<String, Float> damageScale = new HashMap<>();
 
     @Override public String getManagerName() {
         return String.format("%s:DamageScalingManager", ArmorScaling.MOD_ID);
@@ -61,9 +77,28 @@ public class DamageScalingManager extends AbstractScalingManager implements IDam
     }
 
     @Override
+    protected void saveEnabled(boolean isEnabled) {
+        TempDataManager tempDataManager = TempDataManager.get();
+        tempDataManager.writeBool(TACZ_ARMOR_SCALING, TURN_DAMAGE_SCALING, isEnabled);
+        tempDataManager.saveTempData();
+    }
+
+    @Override
     public void reloadConfig(ArmorScalingConfigManager.ArmorScalingConfig config) {
     }
 
     protected void onDamageScaling(DamageScalingEvent event) {
+        if (!isEnabled()) return;
+
+        EquipmentSlot slot = event.isHeadShot() ? EquipmentSlot.HEAD : EquipmentSlot.CHEST;
+        ItemStack armor = event.getVictim().getItemBySlot(slot);
+        @Nullable ResourceLocation armorRl = BattleRoyale.getMcRegistry().getItemRl(armor.getItem());
+        if (armorRl == null) return;
+        String armorRlString = armorRl.toString();
+
+        Float scale = this.damageScale.get(armorRlString);
+        if (scale == null) return;
+
+        event.setDamageScale(scale);
     }
 }

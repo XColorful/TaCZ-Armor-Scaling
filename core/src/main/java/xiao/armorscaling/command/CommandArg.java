@@ -13,6 +13,8 @@ public class CommandArg {
     public static final String ARMOR_IGNORE = "armorIgnore";
 
     public static final String SCALE = "scale";
+    public static final String KEEP_ITEM_GAME_ID = "keepItemGameId";
+    public static final String REPLACE_ITEM_REMOVE_GAME_ID = "replaceItemRemoveGameId";
 
     public static final String BOOL = "boolean";
     public static final String RATIO = "ratio";

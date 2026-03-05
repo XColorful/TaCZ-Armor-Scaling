@@ -9,9 +9,9 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import xiao.armorscaling.data.io.TempDataManager;
+import xiao.armorscaling.ArmorScaling;
+import xiao.armorscaling.api.scaling.armorignore.IArmorIgnoreManager;
 
-import static xiao.armorscaling.api.data.TempDataTag.*;
 import static xiao.armorscaling.command.CommandArg.*;
 
 public class ArmorIgnoreCommand {
@@ -30,9 +30,8 @@ public class ArmorIgnoreCommand {
 
     private static int turnArmorIgnore(CommandContext<CommandSourceStack> context) {
         boolean turn = BoolArgumentType.getBool(context, BOOL);
-        TempDataManager tempDataManager = TempDataManager.get();
-        tempDataManager.writeBool(TACZ_ARMOR_SCALING, TURN_ARMOR_IGNORE, turn);
-        tempDataManager.saveTempData();
+        IArmorIgnoreManager armorIgnoreManager = ArmorScaling.getArmorScalingManager().getArmorIgnoreManager();
+        armorIgnoreManager.setEnabled(turn);
         if (turn) {
             context.getSource().sendSuccess(() -> Component.translatable("armorscaling.message.enable_armor_ignore"), true);
         } else {
@@ -42,11 +41,10 @@ public class ArmorIgnoreCommand {
     }
 
     private static int setArmorIgnoreScale(CommandContext<CommandSourceStack> context) {
-        double ratio = DoubleArgumentType.getDouble(context, RATIO);
-        TempDataManager tempDataManager = TempDataManager.get();
-        tempDataManager.writeDouble(TACZ_ARMOR_SCALING, ARMOR_IGNORE_SCALE, ratio);
-        tempDataManager.saveTempData();
-        context.getSource().sendSuccess(() -> Component.translatable("armorscaling.message.set_armor_ignore_scale", ratio), true);
+        float ratio = (float) DoubleArgumentType.getDouble(context, RATIO);
+        IArmorIgnoreManager armorIgnoreManager = ArmorScaling.getArmorScalingManager().getArmorIgnoreManager();
+        armorIgnoreManager.setArmorIgnoreScale(ratio);
+        context.getSource().sendSuccess(() -> Component.translatable("armorscaling.message.set_armor_ignore_scale", armorIgnoreManager.getArmorIgnoreScale()), true);
         return Command.SINGLE_SUCCESS;
     }
 }

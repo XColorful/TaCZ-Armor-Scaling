@@ -15,4 +15,8 @@ public interface IScalingSubManager {
     boolean registerToMod();
 
     boolean unregisterToMod();
+
+    boolean isEnabled();
+
+    void setEnabled(boolean enable);
 }

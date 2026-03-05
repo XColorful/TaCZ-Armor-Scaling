@@ -20,6 +20,10 @@
 
   "armorscaling.message.enable_durability_scaling": "Enabled armor durability scaling",
   "armorscaling.message.disable_durability_scaling": "Disabled armor durability scaling",
+  "armorscaling.message.enable_durability_scaling_keep_gameid": "Enabled durability scaling transfer previous item GameId",
+  "armorscaling.message.disable_durability_scaling_keep_gameid": "Disabled durability scaling transfer previous item GameId",
+  "armorscaling.message.enable_durability_scaling_remove_gameid": "Enabled durability scaling remove item GameId",
+  "armorscaling.message.disable_durability_scaling_remove_gameid": "Disabled durability scaling remove item GameId",
   "armorscaling.message.enable_armor_ignore": "Enabled global TaCZ bullet armor ignore",
   "armorscaling.message.disable_armor_ignore": "Disabled global TaCZ bullet armor ignore",
   "armorscaling.message.set_armor_ignore_scale": "Set global TaCZ bullet armor ignore scale to %s"
