@@ -162,6 +162,9 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
 
         // 吸收伤害
         float absorbedDamage = event.getBaseDamage() * (1 - event.getDamageScale());
+        if (event.isHeadShot()) {
+            absorbedDamage *= event.getHeadShotMultiplier();
+        }
         // 损害的耐久度比例
         float durabilityLossPercent = absorbedDamage * healthToDurabilityRatio;
         // 换算到 Minecraft 物品耐久损耗量

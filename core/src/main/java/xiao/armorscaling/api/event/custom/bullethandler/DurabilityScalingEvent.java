@@ -14,17 +14,19 @@ public class DurabilityScalingEvent extends CustomEvent {
     private final float baseDamage;
     private final float damageScale;
     private final boolean isHeadShot;
+    private final float headShotMultiplier;
     private final @Nullable ResourceLocation weaponRl;
 
     public DurabilityScalingEvent(@NotNull LivingEntity victim, IBulletHurtEvent event, float damageScale) {
-        this(victim, event.getBaseDamage(), damageScale, event.isHeadShot(), event.getGunId());
+        this(victim, event.getBaseDamage(), damageScale, event.isHeadShot(), event.getHeadShotMultiplier(), event.getGunId());
         this.bulletHurtEvent = event;
     }
-    public DurabilityScalingEvent(@NotNull LivingEntity victim, float baseDamage, float damageScale, boolean isHeadShot, ResourceLocation weaponRl) {
+    public DurabilityScalingEvent(@NotNull LivingEntity victim, float baseDamage, float damageScale, boolean isHeadShot, float headShotMultiplier, ResourceLocation weaponRl) {
         this.victim = victim;
         this.baseDamage = baseDamage;
         this.damageScale = damageScale;
         this.isHeadShot = isHeadShot;
+        this.headShotMultiplier = headShotMultiplier;
         this.weaponRl = weaponRl;
     }
 
@@ -39,6 +41,9 @@ public class DurabilityScalingEvent extends CustomEvent {
     }
     public boolean isHeadShot() {
         return this.isHeadShot;
+    }
+    public float getHeadShotMultiplier() {
+        return this.headShotMultiplier;
     }
     public @Nullable ResourceLocation getWeaponRl() {
         return this.weaponRl;
