@@ -9,5 +9,6 @@ public class DefaultArmorScalingConfigGenerator {
 
     public static void generateDefaultArmorScalingConfigs(String configDirPath) {
         DefaultArmorScaling.generateDefaultConfigs(configDirPath);
+        PubgArmorScaling.generateDefaultConfigs(configDirPath);
     }
 }
