@@ -12,6 +12,7 @@ import xiao.armorscaling.api.event.custom.bullethandler.DurabilityScalingEvent;
 import xiao.armorscaling.api.scaling.durability.IDurabilityScalingManager;
 import xiao.armorscaling.common.scaling.AbstractScalingManager;
 import xiao.armorscaling.config.common.armorscaling.ArmorScalingConfigManager;
+import xiao.armorscaling.config.common.armorscaling.type.DurabilityScalingEntry;
 import xiao.armorscaling.data.io.TempDataManager;
 import xiao.battleroyale.BattleRoyale;
 import xiao.battleroyale.api.common.McSide;
@@ -20,7 +21,9 @@ import xiao.battleroyale.api.event.CustomEventType;
 import xiao.battleroyale.api.event.ICustomEvent;
 import xiao.battleroyale.api.event.ICustomEventHandler;
 import xiao.battleroyale.api.game.IGameManager;
+import xiao.battleroyale.api.minecraft.IMcRegistry;
 import xiao.battleroyale.common.loot.LootGenerator;
+import xiao.battleroyale.config.common.loot.type.EmptyEntry;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,6 +80,8 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
 
     @Override
     public void clearConfig() {
+        this.healthToDurabilityRatio = 5;
+        durabilityScaleData.clear();
     }
 
     @Override
@@ -126,6 +131,18 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
 
     @Override
     public void reloadConfig(ArmorScalingConfigManager.ArmorScalingConfig config) {
+        clearConfig();
+
+        IMcRegistry mcRegistry = BattleRoyale.getMcRegistry();
+        DurabilityScalingEntry entry = config.getDurabilityScalingEntry();
+        this.healthToDurabilityRatio = entry.healthToDurabilityRatio;
+        for (DurabilityScalingEntry.DurabilityScaleEntry durabilityScale : entry.durabilityScaleEntries) {
+            ResourceLocation itemRl = mcRegistry.createResourceLocation(durabilityScale.itemRl);
+            if (itemRl != null) {
+                @NotNull ILootEntry replaceLoot = durabilityScale.replaceItemLoot != null ? durabilityScale.replaceItemLoot : new EmptyEntry(EmptyEntry.TYPE_ITEM);
+                this.durabilityScaleData.put(itemRl.toString(), new DurabilityData(durabilityScale.damagePercent, replaceLoot));
+            }
+        }
     }
 
     protected void onDurabilityScaling(DurabilityScalingEvent event) {

@@ -90,11 +90,12 @@ public class ArmorIgnoreManager extends AbstractScalingManager implements IArmor
         tempDataManager.saveTempData();
     }
     private void setArmorIgnoreScaleInternal(float ratio) {
-        this.armorIgnoreScale = Math.min(0, Math.max(ratio, 1));
+        this.armorIgnoreScale = Math.max(0, Math.min(ratio, 1));
     }
 
     @Override
     public void reloadConfig(ArmorScalingConfigManager.ArmorScalingConfig config) {
+        clearConfig();
     }
 
     protected void onArmorIgnore(ArmorIgnoreEvent event) {

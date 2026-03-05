@@ -9,12 +9,14 @@ import xiao.armorscaling.api.event.custom.bullethandler.DamageScalingEvent;
 import xiao.armorscaling.api.scaling.damage.IDamageScalingManager;
 import xiao.armorscaling.common.scaling.AbstractScalingManager;
 import xiao.armorscaling.config.common.armorscaling.ArmorScalingConfigManager;
+import xiao.armorscaling.config.common.armorscaling.type.DamageScalingEntry;
 import xiao.armorscaling.data.io.TempDataManager;
 import xiao.battleroyale.BattleRoyale;
 import xiao.battleroyale.api.common.McSide;
 import xiao.battleroyale.api.event.CustomEventType;
 import xiao.battleroyale.api.event.ICustomEvent;
 import xiao.battleroyale.api.event.ICustomEventHandler;
+import xiao.battleroyale.api.minecraft.IMcRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +64,7 @@ public class DamageScalingManager extends AbstractScalingManager implements IDam
 
     @Override
     public void clearConfig() {
+        this.damageScale.clear();
     }
 
     @Override
@@ -85,6 +88,16 @@ public class DamageScalingManager extends AbstractScalingManager implements IDam
 
     @Override
     public void reloadConfig(ArmorScalingConfigManager.ArmorScalingConfig config) {
+        clearConfig();
+
+        IMcRegistry mcRegistry = BattleRoyale.getMcRegistry();
+        DamageScalingEntry entry = config.getDamageScalingEntry();
+        for (DamageScalingEntry.DamageScaleEntry damageScale : entry.damageScaleEntries) {
+            ResourceLocation itemRl = mcRegistry.createResourceLocation(damageScale.itemRl);
+            if (itemRl != null) {
+                this.damageScale.put(itemRl.toString(), damageScale.scale);
+            }
+        }
     }
 
     protected void onDamageScaling(DamageScalingEvent event) {
