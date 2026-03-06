@@ -37,6 +37,10 @@
 			"scale": 0.45
 		},
 		{
+			"item": "minecraft:iron_chestplate",
+			"scale": 0.6
+		},
+		{
 			"item": "minecraft:chainmail_chestplate",
 			"scale": 0.8
 		}
@@ -52,6 +56,8 @@
 - item：物品ID
 - damagePercent：耐久度比例上限
 - replaceItem：物品损坏后替换的物品，使用[通用刷新配置](https://github.com/XColorful/BattleRoyale/wiki/General-loot-config)
+- lootDataId：用于选取`replaceItemLootData`
+- replaceItemLootData：可复用的`replaceItem`
 ```json
 "durabilityScaling": {
 	"healthToDurabilityRatio": 5,
@@ -67,6 +73,22 @@
 		{
 			"item": "minecraft:diamond_chestplate",
 			"damagePercent": 250,
+			"replaceItem": {
+				"lootType": "item",
+				"item": "minecraft:chainmail_chestplate",
+				"count": 1,
+				"nbt": "{Damage:239}"
+			}
+		},
+		{
+			"item": "minecraft:chainmail_chestplate",
+			"damagePercent": 220,
+			"lootDataId": 0
+		}
+	],
+	"replaceItemLootData": [
+		{
+			"lootDataId": 0,
 			"replaceItem": {
 				"lootType": "item",
 				"item": "minecraft:chainmail_chestplate",

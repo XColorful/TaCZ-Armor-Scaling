@@ -12,6 +12,9 @@ public class DurabilityScalingEntryTag extends ConfigEntryTag {
     public static final String ITEM_RL = "item";
     public static final String DAMAGE_PERCENT = "damagePercent";
     public static final String REPLACE_ITEM_LOOT = "replaceItem";
+    public static final String LOOT_DATA_ID = "lootDataId";
+
+    public static final String REPLACE_ITEM_LOOT_DATA = "replaceItemLootData";
 
     private DurabilityScalingEntryTag() {}
 }

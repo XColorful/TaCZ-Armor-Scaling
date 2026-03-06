@@ -43,13 +43,16 @@ public class PubgArmorScaling {
                 Arrays.asList(
                         // 三级套
                         new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:netherite_helmet", 230F, null),
-                        new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:diamond_chestplate", 250F, brokenArmor),
+                        new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:diamond_chestplate", 250F, 0),
                         // 二级套
                         new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:iron_helmet", 150F, null),
-                        new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:iron_chestplate", 220F, brokenArmor),
+                        new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:iron_chestplate", 220F, 0),
                         // 一级套
                         new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:leather_helmet", 80F, null),
-                        new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:leather_chestplate", 200F, brokenArmor)
+                        new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:leather_chestplate", 200F, 0)
+                ),
+                Arrays.asList(
+                        new DurabilityScalingEntry.LootDataEntry(0, brokenArmor)
                 )
         );
 

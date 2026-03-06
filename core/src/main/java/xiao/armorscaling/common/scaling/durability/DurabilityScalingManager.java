@@ -59,7 +59,8 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
     protected boolean useAbsorbedDamageOnly = true;
     protected boolean headShotMultiplierScaling = true;
     protected final Map<String, DurabilityData> durabilityScaleData = new HashMap<>();
-    public record DurabilityData(float maxDurabilityPercent, @NotNull ILootEntry replaceItemEntry) {}
+    protected final Map<Integer, @NotNull ILootEntry> lootDataEntries = new HashMap<>();
+    public record DurabilityData(float maxDurabilityPercent, int lootDataId, @NotNull ILootEntry replaceItemEntry) {}
     protected boolean keepItemGameId;
     protected boolean replaceItemRemoveGameId;
 
@@ -84,6 +85,7 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
     public void clearConfig() {
         this.healthToDurabilityRatio = 5;
         durabilityScaleData.clear();
+        lootDataEntries.clear();
     }
 
     @Override
@@ -140,11 +142,27 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
         this.healthToDurabilityRatio = entry.healthToDurabilityRatio;
         this.useAbsorbedDamageOnly = entry.useAbsorbedDamageOnly;
         this.headShotMultiplierScaling = entry.headShotMultiplierScaling;
+
+        // 先 lootData
+        for (DurabilityScalingEntry.LootDataEntry lootDataEntry : entry.replaceItemLootData) {
+            if (lootDataEntry.lootDataId >= 0) {
+                this.lootDataEntries.put(lootDataEntry.lootDataId, lootDataEntry.lootEntry);
+            }
+        }
+        // 之后就可以索引
         for (DurabilityScalingEntry.DurabilityScaleEntry durabilityScale : entry.durabilityScaleEntries) {
             ResourceLocation itemRl = mcRegistry.createResourceLocation(durabilityScale.itemRl);
             if (itemRl != null) {
-                @NotNull ILootEntry replaceLoot = durabilityScale.replaceItemLoot != null ? durabilityScale.replaceItemLoot : new EmptyEntry(EmptyEntry.TYPE_ITEM);
-                this.durabilityScaleData.put(itemRl.toString(), new DurabilityData(durabilityScale.damagePercent, replaceLoot));
+                // 优先取词条里的
+                @Nullable ILootEntry replaceLoot = durabilityScale.replaceItemLoot;
+                // 取不到再去索引
+                if (replaceLoot == null && durabilityScale.lootDataId >= 0) {
+                    replaceLoot = this.lootDataEntries.get(durabilityScale.lootDataId);
+                }
+                if (replaceLoot == null) {
+                    replaceLoot = new EmptyEntry(EmptyEntry.TYPE_ITEM);
+                }
+                this.durabilityScaleData.put(itemRl.toString(), new DurabilityData(durabilityScale.damagePercent, durabilityScale.lootDataId, replaceLoot));
             }
         }
     }
