@@ -2,6 +2,8 @@
 
 [中文](#TaCZ护甲缩放) | [English](#tacz-armor-scaling)
 
+![TaCZ Armor Scaling logo](pic/logo.png)
+
 # TaCZ护甲缩放
 
 😎[wiki](https://github.com/XColorful/TaCZ-Armor-Scaling/wiki) | 📄[docs](https://github.com/XColorful/TaCZ-Armor-Scaling/tree/HEAD/docs)
