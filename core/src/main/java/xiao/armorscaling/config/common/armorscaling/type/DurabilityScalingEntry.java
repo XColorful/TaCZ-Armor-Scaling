@@ -16,6 +16,8 @@ import java.util.List;
 
 public class DurabilityScalingEntry implements IArmorScalingEntry {
     public float healthToDurabilityRatio;
+    public boolean useAbsorbedDamageOnly;
+    public boolean headShotMultiplierScaling;
     public final List<DurabilityScaleEntry> durabilityScaleEntries;
 
     public static class DurabilityScaleEntry {
@@ -34,10 +36,14 @@ public class DurabilityScalingEntry implements IArmorScalingEntry {
 
 
     public DurabilityScalingEntry() {
-        this(5, new ArrayList<>());
+        this(5, true, true, new ArrayList<>());
     }
-    public DurabilityScalingEntry(float healthToDurabilityRatio, List<DurabilityScaleEntry> durabilityScaleEntries) {
+
+    public DurabilityScalingEntry(float healthToDurabilityRatio, boolean useAbsorbedDamageOnly, boolean headShotMultiplierScaling,
+                                  List<DurabilityScaleEntry> durabilityScaleEntries) {
         this.healthToDurabilityRatio = healthToDurabilityRatio;
+        this.useAbsorbedDamageOnly = useAbsorbedDamageOnly;
+        this.headShotMultiplierScaling = headShotMultiplierScaling;
         this.durabilityScaleEntries = durabilityScaleEntries;
     }
     @Override public @NotNull DurabilityScalingEntry copy() {
@@ -45,7 +51,8 @@ public class DurabilityScalingEntry implements IArmorScalingEntry {
         for (DurabilityScaleEntry entry : durabilityScaleEntries) {
             durabilityScaleEntriesCopy.add(entry.copy());
         }
-        return new DurabilityScalingEntry(healthToDurabilityRatio, durabilityScaleEntriesCopy);
+        return new DurabilityScalingEntry(healthToDurabilityRatio, useAbsorbedDamageOnly, headShotMultiplierScaling,
+                durabilityScaleEntriesCopy);
     }
 
     @Override
@@ -57,6 +64,8 @@ public class DurabilityScalingEntry implements IArmorScalingEntry {
     public JsonObject toJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(DurabilityScalingEntryTag.HEALTH_TO_DURABILITY_RATIO, healthToDurabilityRatio);
+        jsonObject.addProperty(DurabilityScalingEntryTag.USE_ABSORBED_DAMAGE_ONLY, useAbsorbedDamageOnly);
+        jsonObject.addProperty(DurabilityScalingEntryTag.HEADSHOT_MULTIPLIER_SCALING, headShotMultiplierScaling);
 
         JsonArray jsonArray = new JsonArray();
         for (DurabilityScaleEntry entry : durabilityScaleEntries) {
@@ -73,6 +82,9 @@ public class DurabilityScalingEntry implements IArmorScalingEntry {
 
     public static DurabilityScalingEntry fromJson(JsonObject jsonObject) {
         float healthToDurabilityRatio = (float) JsonUtils.getJsonDouble(jsonObject, DurabilityScalingEntryTag.HEALTH_TO_DURABILITY_RATIO, 5);
+        boolean useAbsorbedDamageOnly = JsonUtils.getJsonBoolean(jsonObject, DurabilityScalingEntryTag.USE_ABSORBED_DAMAGE_ONLY, true);
+        boolean headShotMultiplierScaling = JsonUtils.getJsonBoolean(jsonObject, DurabilityScalingEntryTag.HEADSHOT_MULTIPLIER_SCALING, true);
+
         List<DurabilityScaleEntry> durabilityScaleEntries = new ArrayList<>();
         JsonArray scaleArray = JsonUtils.getJsonArray(jsonObject, DurabilityScalingEntryTag.DURABILITY_SCALE_DATA, null);
         if (scaleArray != null) {
@@ -90,6 +102,7 @@ public class DurabilityScalingEntry implements IArmorScalingEntry {
                 durabilityScaleEntries.add(new DurabilityScaleEntry(itemRl, damagePercent, replaceItemLoot));
             }
         }
-        return new DurabilityScalingEntry(healthToDurabilityRatio, durabilityScaleEntries);
+        return new DurabilityScalingEntry(healthToDurabilityRatio, useAbsorbedDamageOnly, headShotMultiplierScaling,
+                durabilityScaleEntries);
     }
 }

@@ -31,7 +31,7 @@ public class DefaultArmorScaling {
         ));
 
         DurabilityScalingEntry durabilityScalingEntry = new DurabilityScalingEntry(
-                5,
+                5, true, true,
                 Arrays.asList(
                         new DurabilityScaleEntry("minecraft:iron_helmet", 150, null),
                         new DurabilityScaleEntry("minecraft:diamond_chestplate", 250,

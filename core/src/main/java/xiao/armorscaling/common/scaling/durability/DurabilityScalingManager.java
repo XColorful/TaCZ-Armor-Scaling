@@ -56,6 +56,8 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
     }
 
     protected float healthToDurabilityRatio = 5;
+    protected boolean useAbsorbedDamageOnly = true;
+    protected boolean headShotMultiplierScaling = true;
     protected final Map<String, DurabilityData> durabilityScaleData = new HashMap<>();
     public record DurabilityData(float maxDurabilityPercent, @NotNull ILootEntry replaceItemEntry) {}
     protected boolean keepItemGameId;
@@ -136,6 +138,8 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
         IMcRegistry mcRegistry = BattleRoyale.getMcRegistry();
         DurabilityScalingEntry entry = config.getDurabilityScalingEntry();
         this.healthToDurabilityRatio = entry.healthToDurabilityRatio;
+        this.useAbsorbedDamageOnly = entry.useAbsorbedDamageOnly;
+        this.headShotMultiplierScaling = entry.headShotMultiplierScaling;
         for (DurabilityScalingEntry.DurabilityScaleEntry durabilityScale : entry.durabilityScaleEntries) {
             ResourceLocation itemRl = mcRegistry.createResourceLocation(durabilityScale.itemRl);
             if (itemRl != null) {
@@ -161,8 +165,10 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
         // ----耐久度比例损耗计算----
 
         // 吸收伤害
-        float absorbedDamage = event.getBaseDamage() * (1 - event.getDamageScale());
-        if (event.isHeadShot()) {
+        float absorbedDamage = this.useAbsorbedDamageOnly
+                ? event.getBaseDamage() * (1 - event.getDamageScale())
+                : event.getBaseDamage();
+        if (this.headShotMultiplierScaling && event.isHeadShot()) {
             absorbedDamage *= event.getHeadShotMultiplier();
         }
         // 损害的耐久度比例

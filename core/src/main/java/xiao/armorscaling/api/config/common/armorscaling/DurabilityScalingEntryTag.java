@@ -5,7 +5,8 @@ import xiao.battleroyale.api.config.sub.ConfigEntryTag;
 public class DurabilityScalingEntryTag extends ConfigEntryTag {
 
     public static final String HEALTH_TO_DURABILITY_RATIO = "healthToDurabilityRatio";
-
+    public static final String USE_ABSORBED_DAMAGE_ONLY = "useAbsorbedDamageOnly";
+    public static final String HEADSHOT_MULTIPLIER_SCALING = "headshotMultiplierScaling";
 
     public static final String DURABILITY_SCALE_DATA = "durabilityScaleData";
     public static final String ITEM_RL = "item";

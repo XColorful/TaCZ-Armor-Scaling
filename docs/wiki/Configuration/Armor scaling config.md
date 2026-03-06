@@ -47,12 +47,16 @@
 ### 耐久度缩放配置
 
 - healthToDurabilityRatio：每 1 点伤害对应的耐久度比例
+- useAbsorbedDamageOnly：是否只取伤害缩放的吸收伤害
+- headshotMultiplierScaling：是否乘以爆头倍率
 - item：物品ID
 - damagePercent：耐久度比例上限
 - replaceItem：物品损坏后替换的物品，使用[通用刷新配置](https://github.com/XColorful/BattleRoyale/wiki/General-loot-config)
 ```json
 "durabilityScaling": {
 	"healthToDurabilityRatio": 5,
+	"useAbsorbedDamageOnly": true,
+	"headshotMultiplierScaling": true,
 	"durabilityScaleData": [
 		{
 			"item": "minecraft:iron_helmet",
