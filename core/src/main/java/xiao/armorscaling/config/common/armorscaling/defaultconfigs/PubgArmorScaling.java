@@ -39,7 +39,7 @@ public class PubgArmorScaling {
 
         ILootEntry brokenArmor = EquipmentLevel.equipment(EquipmentLevel.CHAINMAIL, EquipmentLevel.CHESTPLATE, 1);
         DurabilityScalingEntry durabilityScalingEntry = new DurabilityScalingEntry(
-                5, true, true,
+                5, false, false,
                 Arrays.asList(
                         // 三级套
                         new DurabilityScalingEntry.DurabilityScaleEntry("minecraft:netherite_helmet", 230F, null),
