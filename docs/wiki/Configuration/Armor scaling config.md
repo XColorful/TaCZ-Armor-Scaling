@@ -123,4 +123,79 @@
 
 ### Damage scaling config
 
+- item: item ID
+- scale: base damage scaling multiplier
+```json
+"damageScaling": {
+	"damageScaleData": [
+		{
+			"item": "minecraft:iron_helmet",
+			"scale": 0.6
+		},
+		{
+			"item": "minecraft:diamond_chestplate",
+			"scale": 0.45
+		},
+		{
+			"item": "minecraft:iron_chestplate",
+			"scale": 0.6
+		},
+		{
+			"item": "minecraft:chainmail_chestplate",
+			"scale": 0.8
+		}
+	]
+}
+```
+
 ### Durability scaling config
+
+- healthToDurabilityRatio: durability ratio corresponding to every 1 point of damage
+- useAbsorbedDamageOnly: Whether to only use the damage absorbed by scaling
+- headshotMultiplierScaling: Whether to multiply by the headshot multiplier
+- item: item ID
+- damagePercent: maximum durability percentage limit
+- replaceItem: the item to replace after the original is broken, uses[General loot config](https://github.com/XColorful/BattleRoyale/wiki/General-loot-config#English)
+- lootDataId: used to select `replaceItemLootData`
+- replaceItemLootData: reusable `replaceItem` data
+```json
+"durabilityScaling": {
+	"healthToDurabilityRatio": 5,
+	"useAbsorbedDamageOnly": true,
+	"headshotMultiplierScaling": true,
+	"durabilityScaleData": [
+		{
+			"item": "minecraft:iron_helmet",
+			"damagePercent": 150,
+			"replaceItem": {
+			}
+		},
+		{
+			"item": "minecraft:diamond_chestplate",
+			"damagePercent": 250,
+			"replaceItem": {
+				"lootType": "item",
+				"item": "minecraft:chainmail_chestplate",
+				"count": 1,
+				"nbt": "{Damage:239}"
+			}
+		},
+		{
+			"item": "minecraft:chainmail_chestplate",
+			"damagePercent": 220,
+			"lootDataId": 0
+		}
+	],
+	"replaceItemLootData": [
+		{
+			"lootDataId": 0,
+			"replaceItem": {
+				"lootType": "item",
+				"item": "minecraft:chainmail_chestplate",
+				"count": 1,
+				"nbt": "{Damage:239}"
+			}
+		}
+	]
+}
+```
