@@ -1,0 +1,10 @@
+{
+  "package": "xiao.armorscaling.compat.neoforge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "tacz.EntityKineticBulletMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

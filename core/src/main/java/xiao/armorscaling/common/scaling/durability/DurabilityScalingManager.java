@@ -204,10 +204,7 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
         @Nullable UUID armorGameId = gameManager.getGameIdReadApi().getGameId(armor);
         armor.hurtAndBreak(armorDamageLoss,
                 victim,
-                livingEntity -> livingEntity.broadcastBreakEvent(
-                        EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, armorSlot.getIndex()
-                        )
-                )
+                armorSlot
         );
         // 替换盔甲
         if (armor.getCount() <= 0) {

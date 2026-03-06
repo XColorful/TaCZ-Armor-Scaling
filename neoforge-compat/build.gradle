@@ -1,38 +1,43 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version '7.1.20'
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenLocal()
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
 
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-        data {
-            workingDirectory project.file('run-data')
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
+        modSource project.sourceSets.main
+    }
+
+    client {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--nogui'
+    }
+
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    data {
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
@@ -41,7 +46,7 @@ tasks.withType(ProcessResources).configureEach {
 
     var replaceProperties = [
             minecraft_version_range: minecraft_version_range,
-            loader_version_range   : forge_version_range,
+            loader_version_range   : neo_loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
@@ -55,32 +60,31 @@ tasks.withType(ProcessResources).configureEach {
             pack_description       : pack_description,
             pack_format            : pack_format,
 
-            target_modloader       : forge_id,
-            target_version_range   : forge_version_range,
+            target_modloader       : neoforge_id,
+            target_version_range   : neo_version_range,
 
             tacz_version_range      : tacz_version_range,
             battleroyale_version_range: battleroyale_version_range
     ]
-
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
         expand replaceProperties
     }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    implementation "net.neoforged:neoforge:${neo_version}"
 
     implementation project(":core")
-    compileOnly fg.deobf(tacz_curse_maven)
-    compileOnly fg.deobf(battleroyale_curse_maven)
+    compileOnly "${tacz_curse_maven}"
+    compileOnly "${battleroyale_curse_maven}"
 }
 
 tasks.named('jar', Jar).configure {
     archiveBaseName.set(mod_id)
     archiveVersion.set(mod_version)
-    archiveClassifier.set("${forge_id}-${minecraft_version}")
+    archiveClassifier.set("${neoforge_id}-${minecraft_version}")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from project(':core').sourceSets.main.output
 
@@ -95,13 +99,5 @@ tasks.named('jar', Jar).configure {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConfigs"            : "armorscaling.mixins.json"
         ])
-    }
-}
-
-tasks.matching { it.name == 'remapJar' || it.name == 'reobfJar' }.configureEach {
-    if (it.hasProperty("archiveClassifier")) {
-        it.archiveBaseName.set(mod_id)
-        it.archiveVersion.set(mod_version)
-        it.archiveClassifier.set("${forge_id}-${minecraft_version}")
     }
 }
