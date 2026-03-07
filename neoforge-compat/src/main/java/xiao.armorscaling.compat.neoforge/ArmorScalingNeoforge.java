@@ -6,6 +6,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLLoader;
 import xiao.armorscaling.ArmorScaling;
 import xiao.armorscaling.compat.neoforge.compat.tacz.TaczEventRegister;
+import xiao.armorscaling.compat.neoforge.init.NeoCommonSetup;
+import xiao.armorscaling.compat.neoforge.init.NeoCompatInit;
 import xiao.battleroyale.api.common.McSide;
 
 @Mod(ArmorScaling.MOD_ID)
@@ -17,8 +19,15 @@ public class ArmorScalingNeoforge {
         Dist dist = FMLLoader.getDist();
         McSide mcSide = dist.isClient() ? McSide.CLIENT : McSide.DEDICATED_SERVER;
 
-        ArmorScaling.CompatApi compatApi = new ArmorScaling.CompatApi(TaczEventRegister.get());
+        registerToEventBus(modEventBus);
+
+        ArmorScalingNeoforge.compatApi = new ArmorScaling.CompatApi(TaczEventRegister.get());
         ArmorScaling.init(mcSide,
                 ArmorScalingNeoforge.compatApi);
+    }
+
+    private void registerToEventBus(IEventBus modEventBus) {
+        modEventBus.register(NeoCommonSetup.class);
+        modEventBus.register(NeoCompatInit.class);
     }
 }
