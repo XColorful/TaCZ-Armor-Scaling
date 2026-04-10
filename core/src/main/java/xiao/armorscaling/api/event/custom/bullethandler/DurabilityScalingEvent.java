@@ -1,11 +1,22 @@
 package xiao.armorscaling.api.event.custom.bullethandler;
 
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xiao.armorscaling.api.compat.tacz.IBulletHurtEvent;
+import xiao.battleroyale.BattleRoyale;
 import xiao.battleroyale.api.event.CustomEvent;
+import xiao.battleroyale.api.event.CustomEventType;
+import xiao.battleroyale.api.event.ICustomEvent;
+import xiao.battleroyale.api.event.ICustomEventHandler;
+import xiao.battleroyale.api.minecraft.CommandLevel;
+import xiao.battleroyale.event.EventDispatcher;
 
 public class DurabilityScalingEvent extends CustomEvent {
 
@@ -51,5 +62,35 @@ public class DurabilityScalingEvent extends CustomEvent {
 
     public @Nullable IBulletHurtEvent getBulletHurtEvent() {
         return this.bulletHurtEvent;
+    }
+
+    @Override
+    public @Nullable CommandSourceStack createCommandSourceStack(@Nullable CommandSource source) {
+        Level level = victim.level();
+        if (level != null && level.isClientSide()) return null;
+        return new CommandSourceStack(
+                source != null ? source : CommandSource.NULL,
+                victim.position(),
+                victim.getRotationVector(),
+                (ServerLevel) level,
+                CommandLevel.permission(4),
+                this.getTextName(),
+                this.getDisplayName(),
+                level.getServer(),
+                victim
+        );
+    }
+    @Override public String getTextName() {
+        return victim.getName().getString();
+    }
+    @Override public Component getDisplayName() {
+        return victim.getDisplayName();
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    private static final EventDispatcher<ICustomEventHandler, ICustomEvent, CustomEventType> _EVENT_DISPATCHER = BattleRoyale.getEventPoster().getEventDispatcher(DurabilityScalingEvent.class);
+    @SuppressWarnings("UnstableApiUsage")
+    @Override public @NotNull EventDispatcher<ICustomEventHandler, ICustomEvent, CustomEventType> getEventDispatcher() {
+        return _EVENT_DISPATCHER;
     }
 }
