@@ -36,7 +36,7 @@
 
 ### 配置文件
 
-[护甲缩放配置](https://github.com/XColorful/TaCZ-Armor-Scaling/wiki/Armor-scaling-config)位于 _./config/armorscaling/*.json_
+[护甲缩放配置](https://github.com/XColorful/TaCZ-Armor-Scaling/wiki/Armor-scaling-config)位于 _./config/armorScaling/*.json_
 - 修改完后，使用`/armorscaling reload`重新读取
 - 使用`/armorscaling config armorscaling switch`切换不同配置文件
 - 如在单个文件内存储多个配置，使用`/armorscaling config armorscaling id`选中
@@ -73,7 +73,7 @@ Enable proportional armor durability loss:
 
 ### Configuration
 
-[Armor scaling config](https://github.com/XColorful/TaCZ-Armor-Scaling/wiki/Armor-scaling-config#English) is located at _./config/armorscaling/*.json_
+[Armor scaling config](https://github.com/XColorful/TaCZ-Armor-Scaling/wiki/Armor-scaling-config#English) is located at _./config/armorScaling/*.json_
 - After modifying, use `/armorscaling reload` to reload the configuration.
 - Use `/armorscaling config armorscaling switch` to switch between different configuration files.
 - If multiple configurations are stored within a single file, use `/armorscaling config armorscaling id` to select.
