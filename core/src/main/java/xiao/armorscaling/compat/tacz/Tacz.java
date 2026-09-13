@@ -1,12 +1,13 @@
 package xiao.armorscaling.compat.tacz;
 
+import net.minecraft.world.entity.Entity;
 import xiao.battleroyale.compat.AbstractCompatMod;
 
 public class Tacz extends AbstractCompatMod {
 
     @Override
     public String getModId() {
-        return "tacz";
+        return "customgun";
     }
 
     private static class TaczHolder {
@@ -33,22 +34,18 @@ public class Tacz extends AbstractCompatMod {
      */
     @Override
     protected void onModLoaded() throws Exception {
-        Class<?> hurtEventClass = Class.forName("com.tacz.guns.api.event.common.EntityHurtByGunEvent");
+        Class<?> hitEventClass = Class.forName("dev.xcolorful.customgun.core.api.event.projectile.ProjectileHitEntityEvent");
 
-        hurtEventClass.getMethod("getBullet");
-        hurtEventClass.getMethod("getHurtEntity");
-        hurtEventClass.getMethod("getAttacker");
-        hurtEventClass.getMethod("getGunId");
-        hurtEventClass.getMethod("getBaseAmount");
-        hurtEventClass.getMethod("isHeadShot");
-        hurtEventClass.getMethod("getHeadshotMultiplier");
-        hurtEventClass.getMethod("getLogicalSide");
+        hitEventClass.getMethod("getLogicalSide");
+        hitEventClass.getMethod("getHitResult_VictimEntity");
+        hitEventClass.getMethod("getGunProjectile");
+        hitEventClass.getMethod("getGunLocation");
+        hitEventClass.getField("context");
 
-        Class<?> preEventClass = Class.forName("com.tacz.guns.api.event.common.EntityHurtByGunEvent$Pre");
+        Class<?> stateAccessClass = Class.forName("dev.xcolorful.customgun.core.api.entity.projectile.IGunProjectileStateAccess");
 
-        preEventClass.getMethod("setBaseAmount", float.class);
-        preEventClass.getMethod("setHeadshotMultiplier", float.class);
-        preEventClass.getMethod("setHeadshot", boolean.class);
+        stateAccessClass.getMethod("getArmorIgnorePercent", Entity.class);
+        stateAccessClass.getMethod("setArmorIgnorePercent", Entity.class, float.class);
     }
 
     /**

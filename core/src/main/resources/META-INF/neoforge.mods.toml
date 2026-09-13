@@ -28,9 +28,9 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="tacz"
+modId="customgun"
 type="optional"
-versionRange="${tacz_version_range}"
+versionRange="${cgc_version_range}"
 side="BOTH"
 
 [[dependencies.${mod_id}]]

@@ -1,69 +1,67 @@
 package xiao.armorscaling.compat.neoforge.compat.tacz;
 
-import com.tacz.guns.api.event.common.EntityHurtByGunEvent;
+import dev.xcolorful.customgun.core.api.common.McLogicalSide;
+import dev.xcolorful.customgun.core.api.event.projectile.ProjectileHitEntityEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.fml.LogicalSide;
 import xiao.armorscaling.api.compat.tacz.IBulletHurtEvent;
 import xiao.battleroyale.api.common.McSide;
-import xiao.battleroyale.compat.neoforge.event.NeoEvent;
 
-public class TaczBulletHurtEvent extends NeoEvent implements IBulletHurtEvent {
+public class TaczBulletHurtEvent implements IBulletHurtEvent {
 
-    protected EntityHurtByGunEvent.Pre bulletHurtEvent;
+    protected ProjectileHitEntityEvent bulletHurtEvent;
 
-    public TaczBulletHurtEvent(EntityHurtByGunEvent.Pre entityHurtByGunEvent) {
-        super(entityHurtByGunEvent);
+    public TaczBulletHurtEvent(ProjectileHitEntityEvent entityHurtByGunEvent) {
         this.bulletHurtEvent = entityHurtByGunEvent;
     }
 
     @Override
     public McSide getMcSide() {
-        return this.bulletHurtEvent.getLogicalSide() == LogicalSide.CLIENT ? McSide.CLIENT : McSide.DEDICATED_SERVER;
+        return this.bulletHurtEvent.getLogicalSide() == McLogicalSide.CLIENT ? McSide.CLIENT : McSide.DEDICATED_SERVER;
     }
 
     @Override
     public float getBaseDamage() {
-        return bulletHurtEvent.getBaseAmount();
+        return bulletHurtEvent.context.getBaseDamage();
     }
 
     @Override
     public void setBaseDamage(float damage) {
-        bulletHurtEvent.setBaseAmount(damage);
+        bulletHurtEvent.context.setBaseDamage(damage);
     }
 
     @Override
     public boolean isHeadShot() {
-        return bulletHurtEvent.isHeadShot();
+        return bulletHurtEvent.context.isHeadshot();
     }
 
     @Override
     public float getHeadShotMultiplier() {
-        return bulletHurtEvent.getHeadshotMultiplier();
+        return bulletHurtEvent.context.getHeadshotMultiplier();
     }
 
     @Override
     public void setHeadShotMultiplier(float multiplier) {
-        bulletHurtEvent.setHeadshotMultiplier(multiplier);
+        bulletHurtEvent.context.setHeadshotMultiplier(multiplier);
     }
 
     @Override
     public Entity getBullet() {
-        return bulletHurtEvent.getBullet();
+        return bulletHurtEvent.getGunProjectile();
     }
 
     @Override
     public Entity getHurtEntity() {
-        return bulletHurtEvent.getHurtEntity();
+        return bulletHurtEvent.getHitResult_VictimEntity();
     }
 
     @Override
     public Entity getAttacker() {
-        return bulletHurtEvent.getAttacker();
+        return bulletHurtEvent.context.getCausingEntity();
     }
 
     @Override
     public ResourceLocation getGunId() {
-        return bulletHurtEvent.getGunId();
+        return bulletHurtEvent.getGunLocation();
     }
 }
