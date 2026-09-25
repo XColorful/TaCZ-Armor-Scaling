@@ -2,7 +2,7 @@ package xiao.armorscaling.compat.neoforge.compat.tacz;
 
 import dev.xcolorful.customgun.core.api.common.McLogicalSide;
 import dev.xcolorful.customgun.core.api.event.projectile.ProjectileHitEntityEvent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import xiao.armorscaling.api.compat.tacz.IBulletHurtEvent;
 import xiao.battleroyale.api.common.McSide;
@@ -61,7 +61,7 @@ public class TaczBulletHurtEvent implements IBulletHurtEvent {
     }
 
     @Override
-    public ResourceLocation getGunId() {
+    public Identifier getGunId() {
         return bulletHurtEvent.getGunLocation();
     }
 }

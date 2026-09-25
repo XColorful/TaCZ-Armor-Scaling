@@ -1,9 +1,10 @@
 package xiao.armorscaling.api.event.custom.bullethandler;
 
+import dev.xcolorful.customgun.core.util.CommandUtils;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -26,13 +27,13 @@ public class DurabilityScalingEvent extends CustomEvent {
     private final float damageScale;
     private final boolean isHeadShot;
     private final float headShotMultiplier;
-    private final @Nullable ResourceLocation weaponRl;
+    private final @Nullable Identifier weaponRl;
 
     public DurabilityScalingEvent(@NotNull LivingEntity victim, IBulletHurtEvent event, float damageScale) {
         this(victim, event.getBaseDamage(), damageScale, event.isHeadShot(), event.getHeadShotMultiplier(), event.getGunId());
         this.bulletHurtEvent = event;
     }
-    public DurabilityScalingEvent(@NotNull LivingEntity victim, float baseDamage, float damageScale, boolean isHeadShot, float headShotMultiplier, ResourceLocation weaponRl) {
+    public DurabilityScalingEvent(@NotNull LivingEntity victim, float baseDamage, float damageScale, boolean isHeadShot, float headShotMultiplier, Identifier weaponRl) {
         this.victim = victim;
         this.baseDamage = baseDamage;
         this.damageScale = damageScale;
@@ -56,7 +57,7 @@ public class DurabilityScalingEvent extends CustomEvent {
     public float getHeadShotMultiplier() {
         return this.headShotMultiplier;
     }
-    public @Nullable ResourceLocation getWeaponRl() {
+    public @Nullable Identifier getWeaponRl() {
         return this.weaponRl;
     }
 
@@ -68,7 +69,7 @@ public class DurabilityScalingEvent extends CustomEvent {
     public @Nullable CommandSourceStack createCommandSourceStack(@Nullable CommandSource source) {
         Level level = victim.level();
         if (level != null && level.isClientSide()) return null;
-        return new CommandSourceStack(
+        return CommandUtils.sourceStack(
                 source != null ? source : CommandSource.NULL,
                 victim.position(),
                 victim.getRotationVector(),

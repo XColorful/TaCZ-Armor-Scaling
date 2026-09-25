@@ -1,6 +1,5 @@
 package xiao.armorscaling.common.scaling.damage;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -93,7 +92,7 @@ public class DamageScalingManager extends AbstractScalingManager implements IDam
         IMcRegistry mcRegistry = BattleRoyale.getMcRegistry();
         DamageScalingEntry entry = config.getDamageScalingEntry();
         for (DamageScalingEntry.DamageScaleEntry damageScale : entry.damageScaleEntries) {
-            ResourceLocation itemRl = mcRegistry.createResourceLocation(damageScale.itemRl);
+            var itemRl = mcRegistry.createResourceLocation(damageScale.itemRl);
             if (itemRl != null) {
                 this.damageScale.put(itemRl.toString(), damageScale.scale);
             }
@@ -105,7 +104,7 @@ public class DamageScalingManager extends AbstractScalingManager implements IDam
 
         EquipmentSlot slot = event.isHeadShot() ? EquipmentSlot.HEAD : EquipmentSlot.CHEST;
         ItemStack armor = event.getVictim().getItemBySlot(slot);
-        @Nullable ResourceLocation armorRl = BattleRoyale.getMcRegistry().getItemRl(armor.getItem());
+        @Nullable var armorRl = BattleRoyale.getMcRegistry().getItemRl(armor.getItem());
         if (armorRl == null) return;
         String armorRlString = armorRl.toString();
 

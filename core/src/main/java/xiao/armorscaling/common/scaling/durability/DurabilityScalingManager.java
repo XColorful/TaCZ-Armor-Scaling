@@ -1,6 +1,5 @@
 package xiao.armorscaling.common.scaling.durability;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -151,7 +150,7 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
         }
         // 之后就可以索引
         for (DurabilityScalingEntry.DurabilityScaleEntry durabilityScale : entry.durabilityScaleEntries) {
-            ResourceLocation itemRl = mcRegistry.createResourceLocation(durabilityScale.itemRl);
+            var itemRl = mcRegistry.createResourceLocation(durabilityScale.itemRl);
             if (itemRl != null) {
                 // 优先取词条里的
                 @Nullable ILootEntry replaceLoot = durabilityScale.replaceItemLoot;
@@ -173,7 +172,7 @@ public class DurabilityScalingManager extends AbstractScalingManager implements 
         EquipmentSlot armorSlot = event.isHeadShot() ? EquipmentSlot.HEAD : EquipmentSlot.CHEST;
         @NotNull LivingEntity victim = event.getVictim();
         ItemStack armor = victim.getItemBySlot(armorSlot);
-        @Nullable ResourceLocation armorRl = BattleRoyale.getMcRegistry().getItemRl(armor.getItem());
+        @Nullable var armorRl = BattleRoyale.getMcRegistry().getItemRl(armor.getItem());
         if (armorRl == null) return;
         String armorRlString = armorRl.toString();
 

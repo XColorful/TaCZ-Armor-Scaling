@@ -1,5 +1,6 @@
 package xiao.armorscaling.api.event.custom.bullethandler;
 
+import dev.xcolorful.customgun.core.util.CommandUtils;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -58,7 +59,7 @@ public class ArmorIgnoreEvent extends CustomEvent {
         if (victimEntity == null) return null;
         Level level = victimEntity.level();
         if (level != null && level.isClientSide()) return null;
-        return new CommandSourceStack(
+        return CommandUtils.sourceStack(
                 source != null ? source : CommandSource.NULL,
                 victimEntity.position(),
                 victimEntity.getRotationVector(),

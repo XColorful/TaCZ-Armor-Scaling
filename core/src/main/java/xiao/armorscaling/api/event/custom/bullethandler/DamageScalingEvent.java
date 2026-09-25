@@ -1,9 +1,10 @@
 package xiao.armorscaling.api.event.custom.bullethandler;
 
+import dev.xcolorful.customgun.core.util.CommandUtils;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -26,13 +27,13 @@ public class DamageScalingEvent extends CustomEvent {
     private float damageScale = 1;
     private boolean damageScaleChanged = false;
     private final boolean isHeadShot;
-    private final @Nullable ResourceLocation weaponRl;
+    private final @Nullable Identifier weaponRl;
 
     public DamageScalingEvent(@NotNull LivingEntity livingEntity, IBulletHurtEvent event) {
         this(livingEntity, event.getBaseDamage(), event.isHeadShot(), event.getGunId());
         this.bulletHurtEvent = event;
     }
-    public DamageScalingEvent(@NotNull LivingEntity victim, float baseDamage, boolean isHeadShot, ResourceLocation weaponRl) {
+    public DamageScalingEvent(@NotNull LivingEntity victim, float baseDamage, boolean isHeadShot, Identifier weaponRl) {
         this.victim = victim;
         this.baseDamage = baseDamage;
         this.isHeadShot = isHeadShot;
@@ -58,7 +59,7 @@ public class DamageScalingEvent extends CustomEvent {
     public boolean isHeadShot() {
         return this.isHeadShot;
     }
-    public @Nullable ResourceLocation getWeaponRl() {
+    public @Nullable Identifier getWeaponRl() {
         return this.weaponRl;
     }
 
@@ -70,7 +71,7 @@ public class DamageScalingEvent extends CustomEvent {
     public @Nullable CommandSourceStack createCommandSourceStack(@Nullable CommandSource source) {
         Level level = victim.level();
         if (level != null && level.isClientSide()) return null;
-        return new CommandSourceStack(
+        return CommandUtils.sourceStack(
                 source != null ? source : CommandSource.NULL,
                 victim.position(),
                 victim.getRotationVector(),

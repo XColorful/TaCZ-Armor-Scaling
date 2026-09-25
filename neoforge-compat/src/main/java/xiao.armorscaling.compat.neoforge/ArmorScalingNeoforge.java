@@ -16,7 +16,7 @@ public class ArmorScalingNeoforge {
     public static ArmorScaling.CompatApi compatApi;
 
     public ArmorScalingNeoforge(IEventBus modEventBus) {
-        Dist dist = FMLLoader.getDist();
+        Dist dist = FMLLoader.getCurrent().getDist();
         McSide mcSide = dist.isClient() ? McSide.CLIENT : McSide.DEDICATED_SERVER;
 
         registerToEventBus(modEventBus);

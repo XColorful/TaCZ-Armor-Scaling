@@ -1,6 +1,6 @@
 package xiao.armorscaling.api.compat.tacz;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import xiao.battleroyale.api.common.McSide;
 
@@ -19,5 +19,5 @@ public interface IBulletHurtEvent {
     Entity getHurtEntity();
     Entity getAttacker();
 
-    ResourceLocation getGunId();
+    Identifier getGunId();
 }
